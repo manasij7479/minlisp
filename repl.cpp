@@ -4,6 +4,7 @@
 #include "list.h"
 #include "function.h"
 #include "macro.h"
+#include <cctype>
 namespace mm
 {
 	void prompt()
@@ -20,6 +21,7 @@ namespace mm
 		{
 			std::getline(std::cin,line);
 			if(line==""){prompt();continue;}
+			//if(iscntrl(line[0])){prompt();continue;}
 			for(auto t:line)
 			{
 				if(t=='(')
