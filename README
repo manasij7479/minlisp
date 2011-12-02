@@ -6,6 +6,7 @@ TODO
 2.Lambda functions.
 3.User defined Macros
 4.Variable argument support for functions.
+5.Actually handling exceptions, instead of just showing them(this would require some change in the scope class)
 
 The following describes the grammar briefly:
 1.All input uses prefix notation and must be enclosed in parentheses as necessary.
@@ -35,4 +36,10 @@ factorial
 120
 [minlisp]
 .................
+
+
+
+
+
+
 
