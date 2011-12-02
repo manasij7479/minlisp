@@ -1,5 +1,38 @@
 minlisp is a minimal(and ..and of now, incomplete) lisp interpreter
 To build just use make (make sure you have a C++11 compatible version of GCC).
 
+TODO
+1.String Support (Only numerical(and boolean) operations supported now)
+2.Lambda functions.
+3.User defined Macros
+4.Variable argument support for functions.
+
 The following describes the grammar briefly:
+1.All input uses prefix notation and must be enclosed in parentheses as necessary.
+	eg: (+ 5 4) 
+2.Whitespaces aren't required beside the parentheses, but they are a must between everything else).
+	eg: (+ 3 x) is valid but (+3x) isn't.
+3.Lists can't take varible arguments now.
+	eg: (+ 4 5 6) is invalid but you can always write (+ 4 (+ 5 6))
+
+4.Function definition follows the following syntax..(without the < >`s )
+Syntax: (defun <name> <arg_list> <body_list>)
+	eg: (defun adder(n) (+ 1 n)) defines a function which returns its argument incremented by 1.
+5. Operators, functions etc.. are used in the same way.
+	eg: (foo 4) 
+6. Conditional Statements 
+Syntax: (if <condition_list> <true_list> <false_list>)
+The false list is optional and the list evaluates to "nil" if the
+condition evaluates to  "nil" and the false list is absent.
+	eg: (if(> 5 6)(100)(1000)) will evaluate to "1000"
+
+A full example: Defining and using a factorial function:
+..................
+$ ./main
+[minlisp](defun factorial(n)(if(< n 2)(1)(* n (factorial (- n 1)))))
+factorial
+[minlisp](factorial 5)
+120
+[minlisp]
+.................
 
