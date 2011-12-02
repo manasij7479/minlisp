@@ -1,0 +1,5 @@
+minlisp is a minimal(and ..and of now, incomplete) lisp interpreter
+To build just use make (make sure you have a C++11 compatible version of GCC).
+
+The following describes the grammar briefly:
+
