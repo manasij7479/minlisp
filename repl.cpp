@@ -17,6 +17,7 @@ namespace mm
 		std::string line;
 		std::ostringstream result;
 		int nest(0);
+		std::cin.exceptions(std::ios::eofbit);
 		while(true)
 		{
 			std::getline(std::cin,line);
@@ -70,6 +71,11 @@ namespace mm
 			catch(exception e)
 			{
 				std::cout<<e.what()<<std::endl;
+			}
+			catch(const std::ios::failure& problem)
+			{
+				std::cout<<"Received EOF: Program will Quit."<<std::endl;
+				break;
 			}
 		}
 		clean();
