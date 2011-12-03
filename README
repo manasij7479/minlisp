@@ -1,13 +1,5 @@
-minlisp is a minimal(and ..and of now, incomplete) lisp interpreter
-To build just use make (make sure you have a C++11 compatible version of GCC).
-
-TODO
-1.String Support (Only numerical(and boolean) operations supported now)
-2.Lambda functions.
-3.User defined Macros
-4.Variable argument support for functions.
-5.Actually handling exceptions, instead of just showing them(this would require some change in the scope class)
-6.Interpreting from a file... i.e. read and eval multiple lists at once.
+Minlisp is a minimal(and ..and of now, incomplete) lisp interpreter
+To build just use make (make sure you have a C++11 compatible version of GCC..preferably >=4.6).
 
 The following describes the grammar briefly:
 1.All input uses prefix notation and must be enclosed in parentheses as necessary.
@@ -30,7 +22,7 @@ condition evaluates to  "nil" and the false list is absent.
 
 A full example: Defining and using a factorial function:
 ..................
-$ ./main
+$ ./minlisp
 [minlisp](defun factorial(n)(if(< n 2)(1)(* n (factorial (- n 1)))))
 factorial
 [minlisp](factorial 5)
@@ -38,6 +30,13 @@ factorial
 [minlisp]
 .................
 
+TODO List
+1.String Support (Only numerical(and boolean) operations supported now)
+2.Lambda functions.
+3.User defined Macros
+4.Variable argument support for functions.
+5.Actually handling exceptions, instead of just showing them(this would require some change in the scope class)
+6.Interpreting from a file... i.e. read and eval multiple lists at once.(This is proving to be troublesome.)
 
 
 
