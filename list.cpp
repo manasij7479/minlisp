@@ -9,6 +9,8 @@ namespace mm
 {
 	std::string list::eval()
 	{
+		if(size_val==0)return "nil";
+		
 		std::string name = car();
 		list args = cdr();
 		std::istringstream is(name);
