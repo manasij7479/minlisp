@@ -1,10 +1,12 @@
 #include "repl.h"
 #include <iostream>
+#include<fstream>
 #include "env.h"
 #include "list.h"
 #include "function.h"
 #include "macro.h"
-#include <cctype>
+
+
 namespace mm
 {
 	void prompt()
@@ -22,7 +24,6 @@ namespace mm
 		{
 			std::getline(std::cin,line);
 			if(line==""){prompt();continue;}
-			//if(iscntrl(line[0])){prompt();continue;}
 			for(auto t:line)
 			{
 				if(t=='(')
@@ -32,7 +33,7 @@ namespace mm
 				else result<<t;
 			}
 			if(nest==0)break;
-			if(nest<0){throw("Mismatched Parentheses.");}
+			if(nest<0){throw(exception("Mismatched Parentheses."));}
 		}
 		input=result.str();
 	}
@@ -72,7 +73,7 @@ namespace mm
 			{
 				std::cout<<e.what()<<std::endl;
 			}
-			catch(const std::ios::failure& problem)
+			catch(const std::ios::failure&)
 			{
 				std::cout<<"Received EOF: Program will Quit."<<std::endl;
 				break;
@@ -81,4 +82,35 @@ namespace mm
 		clean();
 		return 0;
 	}
+
+// 	void file_repl::read()
+// 	{
+// 		std::ifstream ifs(filename);
+// 		if(!ifs)throw(exception(filename+": Can't be opened#"));
+// 		std::string line;
+// 		std::ostringstream* result=new std::ostringstream();
+// 		int nest(0);
+// 		while(std::getline(ifs,line))
+// 		{
+// 			if(line=="")continue;
+// 			for(auto t:line)
+// 			{
+// 				if(t=='(')
+// 				{nest++;*result<<' '<<t<<' ';}
+// 				else if(t==')')
+// 				{nest--;*result<<' '<<t<<' ';}
+// 				else *result<<t;
+// 			}
+// 			if(nest==0)
+// 			{
+// 				input.push_back(result->str());
+// 				delete result;
+// 				result = new std::ostringstream();
+// 				
+// 			}
+// 			if(nest<0)throw(exception("Mismatched Parentheses."));
+// 		}
+// 		if(nest!=0)throw(exception("Mismatched Parentheses."));
+// 		
+// 	}
 }

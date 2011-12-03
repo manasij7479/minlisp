@@ -2,6 +2,32 @@
 #include <sstream>
 namespace mm
 {
+	std::string function::operator()(list& l)
+	{
+		std::string result;
+		if(l.size()!=arg_list.size())throw(exception("Wrong no. of Args."));
+		std::map<std::string,std::string> scope_map;
+		auto x=arg_list.begin();auto y = l.begin();
+		for(;x!=arg_list.end();x++,y++)
+		{
+			std::string foo(*x),bar(*y);
+			scope_map[foo]=bar;
+		}
+		var_scope.new_local(scope_map);
+		
+		if(compiled)
+		{
+			result = (*body_c)(arg_list);
+		}
+		else
+		{
+			result = body_l.eval();
+		}
+		
+		var_scope.exit_scope();
+		return result;
+	}
+	
 	static list bi_arg("( a1 a2 )");
 	static list un_arg("( a1 )");
 
@@ -64,31 +90,6 @@ namespace mm
 	{
 		double a(get_num(l.car())),b(get_num(l.cdr().car()));
 		return boolean(a==b).str();		
-	}
-	std::string function::operator()(list& l)
-	{
-		std::string result;
-		if(l.size()!=arg_list.size())throw(exception("Wrong no. of Args."));
-		std::map<std::string,std::string> scope_map;
-		auto x=arg_list.begin();auto y = l.begin();
-		for(;x!=arg_list.end();x++,y++)
-		{
-			std::string foo(*x),bar(*y);
-			scope_map[foo]=bar;
-		}
-		var_scope.new_local(scope_map);
-		
-		if(compiled)
-		{
-			result = (*body_c)(arg_list);
-		}
-		else
-		{
-			result = body_l.eval();
-		}
-		
-		var_scope.exit_scope();
-		return result;
 	}
 
 	std::map<std::string,function> global_f_map=

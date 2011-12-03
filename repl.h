@@ -4,6 +4,7 @@
 #ifndef REPL
 #define REPL
 #include <string>
+#include<vector>
 namespace mm
 {
 	class repl
@@ -16,6 +17,8 @@ namespace mm
 	public:
 		static void init();
 		int operator()();
+		friend class file_repl;
 	};
+
 }
 #endif

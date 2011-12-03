@@ -11,7 +11,13 @@ namespace mm
 	{
 		if(size_val==0)return "nil";
 		
-		std::string name = car();
+		std::string name = car(),temp;
+		
+		std::istringstream is1(name); 
+		is1>>temp;
+		if(temp=="(")
+			name = list(name).eval();
+		
 		list args = cdr();
 		std::istringstream is(name);
 		double d;
@@ -25,8 +31,8 @@ namespace mm
 			for(auto x=args.begin();x!=args.end();x++)
 			{
 				std::string val = *x,temp;
-				std::istringstream is(val);
-				is>>temp;
+				std::istringstream is2(val);
+				is2>>temp;
 				if(temp=="(")
 				{
 					list l(val);
