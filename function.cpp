@@ -12,53 +12,58 @@ namespace mm
 		return os.str();
 	}
 	
-	std::string plus_(list& l)
+	std::string plus(list& l)
 	{
 		double d(0);
 		for(auto x=l.begin();x!=l.end();x++)
 			d+=get_num(*x);
 		return to_str(d);
 	}
-	std::string minus_(list& l)
+	std::string minus(list& l)
 	{
 		double d;
 		d = get_num(l.car())-get_num(l.cdr().car());
 		return to_str(d);
 	}
-	std::string mul_(list& l)
+	std::string mul(list& l)
 	{
 		double d(1);
 		for(auto x=l.begin();x!=l.end();x++)
 			d*=get_num(*x);
 		return to_str(d);
 	}
-	std::string div_(list& l)
+	std::string div(list& l)
 	{
 		double d;
 		d = get_num(l.car())/get_num(l.cdr().car());
 		return to_str(d);
 	}
-	std::string and__(list& l)
+	std::string and_(list& l)
 	{
 		return (boolean(get_num(l.car()))&&boolean(get_num(l.cdr().car()))).str();
 	}
-	std::string or__(list& l)
+	std::string or_(list& l)
 	{
 		return (boolean(get_num(l.car()))||boolean(get_num(l.cdr().car()))).str();
 	}
-	std::string not__(list& l)
+	std::string not_(list& l)
 	{
 		return (!boolean(get_num(l.car()))).str();
 	}
-	std::string gt_(list& l)
+	std::string gt(list& l)
 	{
 		double a(get_num(l.car())),b(get_num(l.cdr().car()));
 		return boolean(a>b).str();
 	}
-	std::string lt_(list& l)
+	std::string lt(list& l)
 	{
 		double a(get_num(l.car())),b(get_num(l.cdr().car()));
 		return boolean(a<b).str();
+	}
+	std::string equ(list& l)
+	{
+		double a(get_num(l.car())),b(get_num(l.cdr().car()));
+		return boolean(a==b).str();		
 	}
 	std::string function::operator()(list& l)
 	{
@@ -71,7 +76,7 @@ namespace mm
 			std::string foo(*x),bar(*y);
 			scope_map[foo]=bar;
 		}
-		var_scope.new_local(scope_map); //Iff a more generic scope is needed 
+		var_scope.new_local(scope_map);
 		
 		if(compiled)
 		{
@@ -82,31 +87,21 @@ namespace mm
 			result = body_l.eval();
 		}
 		
-		
-		
 		var_scope.exit_scope();
 		return result;
 	}
 
-	function plus(bi_arg,plus_);
-	function minus(bi_arg,minus_);
-	function mul(bi_arg,mul_);
-	function div(bi_arg,div_);
-	function and_(bi_arg,and__);
-	function or_(bi_arg,or__);
-	function not_(un_arg,not__);
-	function gt(bi_arg,gt_);
-	function lt(bi_arg,lt_);
 	std::map<std::string,function> global_f_map=
 	{
-		{"+",plus},
-		{"-",minus},
-		{"*",mul},
-		{"/",div},
-		{"&",and_},
-		{"|",or_},
-		{"!",not_},
-		{">",gt},
-		{"<",lt}
+		{"+",function(bi_arg,plus)},
+		{"-",function(bi_arg,minus)},
+		{"*",function(bi_arg,mul)},
+		{"/",function(bi_arg,div)},
+		{"&",function(bi_arg,and_)},
+		{"|",function(bi_arg,or_)},
+		{"!",function(un_arg,not_)},
+		{">",function(bi_arg,gt)},
+		{"<",function(bi_arg,lt)},
+		{"=",function(bi_arg,equ)}
 	};
 }
