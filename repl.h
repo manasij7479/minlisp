@@ -17,7 +17,6 @@ namespace mm
 	public:
 		static void init();
 		int operator()();
-		friend class file_repl;
 	};
 
 }

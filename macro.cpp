@@ -2,6 +2,7 @@
 #include "util.h"
 #include "function.h"
 #include "env.h"
+#include <sstream>
 namespace mm
 {
 	std::string macro::operator()(list& l)
@@ -15,17 +16,28 @@ namespace mm
 		var_scope.exit_scope();
 		return result;
 	}
-	std::string defun_(list& l)
+	std::string defun(list& l)
 	{
-		if(l.size()!=3)throw(exception("BAD_DEFUN"));
+		if(l.size()!=3)throw(exception("Wrong Defun syntax."));
 		std::string name = l.car();
 		list arg_list = list(l.cdr().car());
 		list body_list = list(l.cdr().cdr().car());
 		f_scope.new_global_val(name,function(arg_list,body_list));
 		return name;
 	}
+	std::string lambda(list& l)
+	{
+		if(l.size()!=2)throw(exception("You got the lambda syntax wrong."));
+		list arg_list = list(l.car());
+		list body_list = list(l.cdr().car());
+		int lambda_num_append=f_scope.get_local_num();
+		std::ostringstream os; os<<"_lambda_"<<lambda_num_append;
+		std::string name(os.str());
+		f_scope.new_local_val(name,function(arg_list,body_list));
+		return name;
+	}
 
-	std::string if__(list& l)
+	std::string if_(list& l)
 	{
 		if(l.size()!=2&&l.size()!=3)
 			throw(exception("BAD_IF"));
@@ -39,12 +51,10 @@ namespace mm
 		
 	}
 	
-	macro defun(defun_);
-	macro if_(if__);
-	
 	std::map<std::string,macro> global_m_map=
 	{
-		{"defun",defun},
-		{"if",if_}
+		{"defun",macro(defun)},
+		{"if",macro(if_)},
+		{"lambda",macro(lambda)}
 	};
 }

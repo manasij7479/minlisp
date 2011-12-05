@@ -63,6 +63,8 @@ namespace mm
 		
 		while(true)
 		{
+			std::map<std::string,function> local_fmap;
+			f_scope.new_local(local_fmap);//This is primarily for lambda functions
 			try
 			{
 				read();
@@ -78,6 +80,7 @@ namespace mm
 				std::cout<<"Received EOF: Program will Quit."<<std::endl;
 				break;
 			}
+			f_scope.exit_scope();
 		}
 		clean();
 		return 0;

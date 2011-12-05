@@ -28,7 +28,15 @@ namespace mm
 		{
 			(data[0])[s]=t;
 		}
+		void new_local_val(std::string s,T t )
+		{
+			data.back()[s]=t;
+		}
         void exit_scope(){data.pop_back();};
+		int get_local_num()//Number of items on the scope on the 'back'
+		{
+			return data.back().size();
+		}
     };
 	extern scope<std::string> var_scope;
 	/*Converts a string to a double
