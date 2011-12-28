@@ -37,12 +37,14 @@ namespace mm
 		{
 			return data.back().size();
 		}
+		int size(){return data.size();}
     };
-	extern scope<std::string> var_scope;
 	/*Converts a string to a double
 	 * If the string is an identifier....
-	 * it fetches the value from the scope object supplied. 
+	 * it fetches the value from the scope object supplied.
 	 */
+	extern scope<std::string> var_scope;
+
 	double get_num(const std::string& s,scope<std::string>& ss=var_scope);
 
 	class boolean

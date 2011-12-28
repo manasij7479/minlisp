@@ -5,19 +5,36 @@
 #define REPL
 #include <string>
 #include<vector>
+#include<ostream>
+#include<istream>
+#include<fstream>
 namespace mm
 {
 	class repl
 	{
-		std::string input,output;
-		void read();
-		void eval();
-		void print();
+	protected :
+		std::ostream& out;
+		std::istream& in;
+		
+		std::string read();
+		std::string eval(const std::string& s);
+		void print(const std::string& s);
 		void clean();
 	public:
 		static void init();
 		int operator()();
+		repl(std::istream& i,std::ostream& o):out(o),in(i){};
+		repl();
+	};
+	class file_repl:public repl
+	{
+	public:
+		int operator()();
+		file_repl(std::string filename,std::ostream& o)
+			:repl(*(new std::ifstream(filename)),o){};
+		
 	};
 
 }
 #endif
+//(defun factorial(n)(if(< n 2)(1)(* n (factorial (- n 1)))))

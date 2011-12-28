@@ -13,17 +13,15 @@ namespace mm
 	{
 		std::cout<<"[minlisp]";
 	}
-	void repl::read()
+	std::string repl::read()
 	{
-		prompt();
 		std::string line;
 		std::ostringstream result;
 		int nest(0);
-		std::cin.exceptions(std::ios::eofbit);
+		in.exceptions(std::ios::eofbit);
 		while(true)
 		{
-			std::getline(std::cin,line);
-			if(line==""){prompt();continue;}
+			std::getline(in,line);
 			for(auto t:line)
 			{
 				if(t=='(')
@@ -35,16 +33,16 @@ namespace mm
 			if(nest==0)break;
 			if(nest<0){throw(exception("Mismatched Parentheses."));}
 		}
-		input=result.str();
+		return result.str();
 	}
-	void repl::eval()
+	std::string repl::eval(const std::string& s)
 	{
-		list l(input);
-		output = l.eval();
+		list l(s);
+		return l.eval();
 	}
-	void repl::print()
+	void repl::print(const std::string& s)
 	{
-		std::cout<<output<<std::endl;
+		out<<s<<std::endl;
 	}
 	void repl::init()
 	{
@@ -53,7 +51,7 @@ namespace mm
 	}
 	void repl::clean()
 	{
-		std::cout<<"Bye\n";
+		out<<"Bye\n";
 		f_scope.exit_scope();
 		m_scope.exit_scope();
 	}
@@ -63,57 +61,64 @@ namespace mm
 		
 		while(true)
 		{
+			int var_scope_ini_size = var_scope.size();
 			std::map<std::string,function> local_fmap;
 			f_scope.new_local(local_fmap);//This is primarily for lambda functions
 			try
 			{
-				read();
-				eval();
-				print();	
+				std::string temp;
+					prompt();
+				temp=read();
+					if(temp=="")continue;
+				temp = eval(temp);
+				print(temp);	
 			}
 			catch(exception e)
 			{
-				std::cout<<e.what()<<std::endl;
+				out<<e.what()<<std::endl;
 			}
 			catch(const std::ios::failure&)
 			{
-				std::cout<<"Received EOF: Program will Quit."<<std::endl;
+				out<<"Received EOF: Minlisp will Quit."<<std::endl;
 				break;
 			}
 			f_scope.exit_scope();
+			while(var_scope.size()>var_scope_ini_size) 
+				var_scope.exit_scope();
 		}
 		clean();
 		return 0;
 	}
+	int file_repl::operator()()
+	{
+		init();
+		while(true)
+		{
+			int var_scope_ini_size = var_scope.size();
+			std::map<std::string,function> local_fmap;
+			f_scope.new_local(local_fmap);//This is primarily for lambda functions
+			try
+			{
+				std::string temp;
+				temp=read();
+				temp=eval(temp);
+				if(f_scope.find(temp)==nullptr)
+					print(temp);
 
-// 	void file_repl::read()
-// 	{
-// 		std::ifstream ifs(filename);
-// 		if(!ifs)throw(exception(filename+": Can't be opened#"));
-// 		std::string line;
-// 		std::ostringstream* result=new std::ostringstream();
-// 		int nest(0);
-// 		while(std::getline(ifs,line))
-// 		{
-// 			if(line=="")continue;
-// 			for(auto t:line)
-// 			{
-// 				if(t=='(')
-// 				{nest++;*result<<' '<<t<<' ';}
-// 				else if(t==')')
-// 				{nest--;*result<<' '<<t<<' ';}
-// 				else *result<<t;
-// 			}
-// 			if(nest==0)
-// 			{
-// 				input.push_back(result->str());
-// 				delete result;
-// 				result = new std::ostringstream();
-// 				
-// 			}
-// 			if(nest<0)throw(exception("Mismatched Parentheses."));
-// 		}
-// 		if(nest!=0)throw(exception("Mismatched Parentheses."));
-// 		
-// 	}
+			}
+			catch(exception e)
+			{
+				out<<e.what()<<std::endl;
+			}
+			catch(const std::ios::failure&)
+			{
+				//out<<"Received EOF: Program will Quit."<<std::endl;
+				break;
+			}
+			f_scope.exit_scope();
+			while(var_scope.size()>var_scope_ini_size)
+			var_scope.exit_scope();
+		}
+		return 0;
+	}
 }
