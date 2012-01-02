@@ -67,21 +67,6 @@ namespace mm
 			size_val++;
 			return iterator(new_node);
 		}
-// 		void remove(iterator it)
-// 		{
-// 			node* n = it.n;
-// 			n->val = n->next->val;
-// 			bool end_flag=(n==end_);
-// 			node* temp = n->next->next;
-// 			delete(n->next);
-// 			n->next = temp;			
-// 			if(end_flag)
-// 			{
-// 				n->next = nullptr;n->sentinel=true;
-// 				//Have to set end_ here...which would be before n
-// 			}
-// 			size_val++;
-// 		}
 		std::string eval();
 		std::string car();//Returns the first element
 		list cdr(); //Returns a list containing the last (size-1) elements.
@@ -109,7 +94,7 @@ namespace mm
 		int size_val;
 
 		list(node* b_sn,node* e_,int s_val):begin_sn(b_sn),end_(e_),size_val(s_val){};
-		//^Only for special friends !
+		//^Only for special friend classes and functions !
 	};
 }
 #endif // LIST_H

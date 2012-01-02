@@ -31,10 +31,8 @@ namespace mm
 	public:
 		int operator()();
 		file_repl(std::string filename,std::ostream& o)
-			:repl(*(new std::ifstream(filename)),o){};
-		
+			:repl(*(new std::ifstream(filename)),o){};		
 	};
 
 }
 #endif
-//(defun factorial(n)(if(< n 2)(1)(* n (factorial (- n 1)))))

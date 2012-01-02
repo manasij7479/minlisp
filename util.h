@@ -94,5 +94,4 @@ namespace mm
 		std::string what(){return data;}
 	};
 }
-
 #endif

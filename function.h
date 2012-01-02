@@ -1,7 +1,6 @@
 /**
  * Function class and the various builtin functions
  */
-
 #ifndef FUNCTION_H
 #define FUNCTION_H
 #include "list.h"
@@ -29,5 +28,4 @@ namespace mm
 	};
 	extern std::map<std::string,function> global_f_map;
 }
-
 #endif

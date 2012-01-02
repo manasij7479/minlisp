@@ -5,8 +5,6 @@
 #include "list.h"
 #include "function.h"
 #include "macro.h"
-
-
 namespace mm
 {
 	void prompt()
@@ -61,7 +59,6 @@ namespace mm
 	int repl::operator()()
 	{
 		init();
-		
 		while(true)
 		{
 			int var_scope_ini_size = var_scope.size();
@@ -116,7 +113,6 @@ namespace mm
 			}
 			catch(const std::ios::failure&)
 			{
-				//out<<"Received EOF: Program will Quit."<<std::endl;
 				break;
 			}
 			f_scope.exit_scope();
