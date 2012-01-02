@@ -25,3 +25,9 @@ $(TARGET) :     $(OBJS)
 # Simple clean up target
 clean :
 	rm -f $(OBJS) $(TARGET) *~
+
+redo:
+	make -s clean
+	make -s -j4
+	./$(TARGET)
+	

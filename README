@@ -1,4 +1,4 @@
-Minlisp is a minimal(and ..and of now, incomplete) lisp interpreter
+Minlisp is a minimal(and ..and as of now, incomplete) lisp interpreter.
 To build just use make (make sure you have a C++11 compatible version of GCC..preferably >=4.6).
 
 The following describes the grammar briefly:
@@ -19,7 +19,9 @@ Syntax: (if <condition_list> <true_list> <false_list>)
 The false list is optional and the list evaluates to "nil" if the
 condition evaluates to  "nil" and the false list is absent.
 	eg: (if(> 5 6)(100)(1000)) will evaluate to "1000"
-
+7.Set global variables with setv
+	eg: (setv x 5) will set x to 5
+	
 A full example: Defining and using a factorial function:
 ..................
 $ ./minlisp
@@ -28,18 +30,11 @@ factorial
 [minlisp](factorial 5)
 120
 [minlisp]
-.................
+..................
 
 TODO List
 1.String Support (Only numerical(and boolean) operations supported now)
-2.Lambda functions.
-3.User defined Macros
-4.Variable argument support for functions.
-5.Actually handling exceptions, instead of just showing them(this would require some change in the scope class)
-6.Interpreting from a file... i.e. read and eval multiple lists at once.(This is proving to be troublesome.)
-
-
-
-
-
-
+2.User defined Macros
+3.Variable argument support for functions.
+4.Actually handling exceptions, instead of just showing them(this would require some change in the scope class)
+5.Actual Data Types

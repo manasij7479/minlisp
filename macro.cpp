@@ -10,10 +10,12 @@ namespace mm
 		std::string result;
 		std::map<std::string,std::string> v,f;
 		var_scope.new_local(v);
-
+		
 		result = (*body)(l);
 
 		var_scope.exit_scope();
+		
+		
 		return result;
 	}
 	std::string defun(list& l)
@@ -50,11 +52,22 @@ namespace mm
 		else return "nil";
 		
 	}
+	std::string setv(list& l)
+	{
+		if(l.size()!=2)throw(exception("BAD_SETV"));
+		std::string name=l.car(),value=l.cdr().car();
+		auto v = var_scope.find(name);
+		if(v!=nullptr)*v = value;
+		else var_scope.new_global_val(name,value);
+		//var_scope.debug_print();
+		return name;
+	}
 	
 	std::map<std::string,macro> global_m_map=
 	{
 		{"defun",macro(defun)},
 		{"if",macro(if_)},
-		{"lambda",macro(lambda)}
+		{"lambda",macro(lambda)},
+		{"setv",macro(setv)}
 	};
 }

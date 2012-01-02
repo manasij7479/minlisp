@@ -91,7 +91,6 @@ namespace mm
 		double a(get_num(l.car())),b(get_num(l.cdr().car()));
 		return boolean(a==b).str();		
 	}
-
 	std::map<std::string,function> global_f_map=
 	{
 		{"+",function(bi_arg,plus)},

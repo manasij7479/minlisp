@@ -6,7 +6,7 @@
 #include<vector>
 #include<map>
 #include<sstream>
-
+#include<iostream>
 namespace mm
 {
     template<typename T>
@@ -38,6 +38,18 @@ namespace mm
 			return data.back().size();
 		}
 		int size(){return data.size();}
+		void debug_print()
+		{
+			for(auto m:data)
+			{
+				for(auto p:m)
+				{
+					std::cout<<"("<<p.first<<","<<p.second<<") ";
+				}
+				
+			}
+			std::cout<<"Size="<<size()<<std::endl;
+		}
     };
 	/*Converts a string to a double
 	 * If the string is an identifier....

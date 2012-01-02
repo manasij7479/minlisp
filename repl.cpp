@@ -46,14 +46,17 @@ namespace mm
 	}
 	void repl::init()
 	{
+		if(!in || !out){std::cout<<"File(s) was not opened correctly.\n";exit(-1);}
 		f_scope.new_local(global_f_map);
 		m_scope.new_local(global_m_map);
+		var_scope.new_local(* new std::map<std::string,std::string>());
 	}
 	void repl::clean()
 	{
 		out<<"Bye\n";
 		f_scope.exit_scope();
 		m_scope.exit_scope();
+		var_scope.exit_scope();
 	}
 	int repl::operator()()
 	{
@@ -71,7 +74,8 @@ namespace mm
 				temp=read();
 					if(temp=="")continue;
 				temp = eval(temp);
-				print(temp);	
+				print(temp);
+				
 			}
 			catch(exception e)
 			{

@@ -1,4 +1,5 @@
 #include "env.h"
+#include<iostream>
 namespace mm
 {
 	scope<std::string> var_scope;

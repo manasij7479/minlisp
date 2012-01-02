@@ -21,7 +21,7 @@ namespace mm
 		void print(const std::string& s);
 		void clean();
 	public:
-		static void init();
+		void init();
 		int operator()();
 		repl(std::istream& i,std::ostream& o):out(o),in(i){};
 		repl();
