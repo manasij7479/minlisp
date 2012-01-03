@@ -34,5 +34,11 @@ namespace mm
 	{
 		return list(get_data_str(s,ss));
 	}
+	bool is_list(std::string s, list& l)
+	{
+		try{l=list(s);}
+		catch(exception e){if(e.what()==std::string("BAD_LIST: "+s))return false;}
+		return true;
+	}
 	
 }

@@ -52,6 +52,9 @@ namespace mm
 	{
 		if(l.size()!=2)throw(exception("BAD_SETV"));
 		std::string name=l.car(),value=l.cdr().car();
+		list result;
+		if(is_list(value,result))value=result.eval();
+
 		auto v = var_scope.find(name);
 		if(v!=nullptr)*v = value;
 		else var_scope.new_global_val(name,value);

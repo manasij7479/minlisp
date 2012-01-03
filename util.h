@@ -52,15 +52,6 @@ namespace mm
 			std::cout<<"Size="<<size()<<std::endl;
 		}
     };
-	/*Converts a string to a double
-	 * If the string is an identifier....
-	 * it fetches the value from the scope object supplied.
-	 */
-	extern scope<std::string> var_scope;
-
-	double get_num(const std::string& s,scope<std::string>& ss=var_scope);
-	std::string get_data_str(const std::string& s,scope<std::string>& ss=var_scope);
-	list get_data_list(const std::string& s,scope<std::string>& ss=var_scope);
 
 	class boolean
 	{
@@ -75,7 +66,7 @@ namespace mm
 			if(is>>d)
 			{
 				if(d==double())val=false;
-				else val=true;	
+				else val=true;
 			}
 			else val= !(s=="Nil"||s=="nil"||s=="NIL"||s=="");
 
@@ -87,7 +78,7 @@ namespace mm
 		boolean operator&&(boolean b){return boolean(val&&b.val);}
 		boolean operator||(boolean b){return boolean(val||b.val);}
 		boolean operator!(){return boolean(!val);}
-		
+
 	};
 	class exception
 	{
@@ -96,5 +87,18 @@ namespace mm
 		exception(std::string s):data(s){};
 		std::string what(){return data;}
 	};
+	
+	/*Converts a string to a double
+	 * If the string is an identifier....
+	 * it fetches the value from the scope object supplied.
+	 */
+	extern scope<std::string> var_scope;
+
+	double get_num(const std::string& s,scope<std::string>& ss=var_scope);
+	std::string get_data_str(const std::string& s,scope<std::string>& ss=var_scope);
+	list get_data_list(const std::string& s,scope<std::string>& ss=var_scope);
+	bool is_list(std::string s, list& l);
+	
+
 }
 #endif
