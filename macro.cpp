@@ -56,7 +56,7 @@ namespace mm
 		if(v!=nullptr)*v = value;
 		else var_scope.new_global_val(name,value);
 		return name;
-	}
+	}	
 	std::map<std::string,macro> global_m_map=
 	{
 		{"defun",macro(defun)},

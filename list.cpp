@@ -62,7 +62,7 @@ namespace mm
 		std::string result;
 
 		is>>temp;
-		if(temp!="(")throw(exception("BAD_LIST"));
+		if(temp!="(")throw(exception("BAD_LIST: "+s));
 		while(is>>temp)
 		{
 			if(temp=="(")
@@ -82,7 +82,7 @@ namespace mm
 				else push_back(temp);
 			}
 		}
-		if(temp!=")")throw(exception("BAD_LIST"));
+		if(temp!=")")throw(exception("BAD_LIST: "+s));
 		 
 	}
 	std::string list::car()

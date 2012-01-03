@@ -23,4 +23,16 @@ namespace mm
 		else throw(exception(numstr+" is not a number."));//change later
 
 	}
+	std::string get_data_str(const std::string& s,scope<std::string>& ss)
+	{
+		if(s[0]=='`')return s.substr(1,s.size()-1);
+		auto v = ss.find(s);
+		if(v!=nullptr)return get_data_str(*v);
+		else throw(exception(s+" is not a data string."));
+	}
+	list get_data_list(const std::string& s,scope<std::string>& ss)
+	{
+		return list(get_data_str(s,ss));
+	}
+	
 }

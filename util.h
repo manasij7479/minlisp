@@ -7,6 +7,7 @@
 #include<map>
 #include<sstream>
 #include<iostream>
+#include "list.h"
 namespace mm
 {
     template<typename T>
@@ -58,6 +59,8 @@ namespace mm
 	extern scope<std::string> var_scope;
 
 	double get_num(const std::string& s,scope<std::string>& ss=var_scope);
+	std::string get_data_str(const std::string& s,scope<std::string>& ss=var_scope);
+	list get_data_list(const std::string& s,scope<std::string>& ss=var_scope);
 
 	class boolean
 	{
