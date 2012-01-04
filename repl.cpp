@@ -74,13 +74,12 @@ namespace mm
 				print(temp);
 				
 			}
-			catch(exception e)
+			catch(exception& e)
 			{
 				out<<e.what()<<std::endl;
 			}
 			catch(const std::ios::failure&)
 			{
-				out<<"Received EOF: Minlisp will Quit."<<std::endl;
 				break;
 			}
 			f_scope.exit_scope();
@@ -107,7 +106,7 @@ namespace mm
 					print(temp);
 
 			}
-			catch(exception e)
+			catch(exception& e)
 			{
 				out<<e.what()<<std::endl;
 			}

@@ -36,8 +36,10 @@ namespace mm
 	}
 	bool is_list(std::string s, list& l)
 	{
-		try{l=list(s);}
-		catch(exception e){if(e.what()==std::string("BAD_LIST: "+s))return false;}
+		list new_list;
+		try{new_list = list(s);}
+		catch(...){return false;}
+		std::swap(l,new_list);
 		return true;
 	}
 	

@@ -4,7 +4,8 @@
 #include "function.h"
 #include "macro.h"
 #include<sstream>
-
+#include<thread>
+#include<algorithm>
 namespace mm
 {
 	std::string list::eval()
@@ -23,22 +24,35 @@ namespace mm
 		double d;
 		
 		auto v = var_scope.find(name);
-		if(v!=nullptr)return *v;
+		if(v!=nullptr)return *v; //(TEMPORARY)
 		
 		auto f = f_scope.find(name);
-		if(f!=nullptr)
-		{	
+		if(f!=nullptr) //This block 'simplifies' the args to a functio
+		{
+// 			for(auto x=args.begin();x!=args.end();x++)
+// 			{
+// 				list l;
+// 				if(is_list(*x,l)) *x = l.eval();
+// 			} /*Version without threads*/
+			std::vector<std::thread> threads;
 			for(auto x=args.begin();x!=args.end();x++)
 			{
-				std::string val = *x,temp;
-				std::istringstream is2(val);
-				is2>>temp;
-				if(temp=="(")
-				{
-					list l(val);
-					*x = l.eval();
-				}
+				threads.push_back
+				(
+					std::thread
+					(
+						[](list::iterator li)
+						{
+							list l;
+							if(is_list(*li,l))
+								*li = l.eval();
+						},
+						x
+					)
+				);
 			}
+			for(auto& t:threads)t.join();
+
 			return (*f)(args);
 		}
 		auto m = m_scope.find(name);

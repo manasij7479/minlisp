@@ -1,5 +1,6 @@
 CXX:= g++
 CXXFLAGS :=-c -Wall -std=c++0x -g
+LDFLAGS := -lpthread
 # Sources are all .cpp files in this dir
 SRCS :=         $(wildcard *.cpp)
 # Object files are everything in $SRCS, with the .cpp replaced by a .o
